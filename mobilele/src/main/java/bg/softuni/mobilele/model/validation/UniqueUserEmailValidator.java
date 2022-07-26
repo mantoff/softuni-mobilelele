@@ -1,6 +1,5 @@
 package bg.softuni.mobilele.model.validation;
 
-import bg.softuni.mobilele.model.dto.UserRegisterDTO;
 import bg.softuni.mobilele.repository.UserRepository;
 
 import javax.validation.ConstraintValidator;

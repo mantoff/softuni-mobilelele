@@ -1,4 +1,4 @@
-package bg.softuni.mobilele.model.dto;
+package bg.softuni.mobilele.model.dto.offer;
 
 import bg.softuni.mobilele.model.enums.EngineEnum;
 import bg.softuni.mobilele.model.enums.TransmissionEnum;
@@ -19,6 +19,10 @@ public class AddOfferDTO {
     @Positive
     @NotNull
     private Integer price;
+
+    @Positive
+    @NotNull
+    private Integer mileage;
 
     @Min(1900)
     @NotNull
@@ -92,6 +96,15 @@ public class AddOfferDTO {
 
     public AddOfferDTO setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public Integer getMileage() {
+        return mileage;
+    }
+
+    public AddOfferDTO setMileage(Integer mileage) {
+        this.mileage = mileage;
         return this;
     }
 }
