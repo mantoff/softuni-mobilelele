@@ -3,6 +3,8 @@ package bg.softuni.mobilele.web;
 import bg.softuni.mobilele.model.dto.offer.AddOfferDTO;
 import bg.softuni.mobilele.service.BrandService;
 import bg.softuni.mobilele.service.OfferService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,15 +29,20 @@ public class OfferController {
     }
 
     @GetMapping("/offers/all")
-    public String allOffers() {
+    public String allOffers(
+            Model model,
+            @PageableDefault(page = 0, size = 2) Pageable pageable) {
+
+        model.addAttribute("offers", offerService.getAllOffers(pageable));
+
         return "offers";
     }
 
-    @GetMapping ("/offers/add")
+    @GetMapping("/offers/add")
     public String addOffer(Model model) {
 
         //below is an alternative of @ModelAttribute
-        if(!model.containsAttribute("addOfferModel")) {
+        if (!model.containsAttribute("addOfferModel")) {
             model.addAttribute("addOfferModel", new AddOfferDTO());
         }
         model.addAttribute("brands", brandService.getAllBrands());
@@ -43,13 +50,13 @@ public class OfferController {
         return "offer-add";
     }
 
-    @PostMapping ("/offers/add")
+    @PostMapping("/offers/add")
     public String addOffer(@Valid AddOfferDTO addOfferModel,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @AuthenticationPrincipal UserDetails userDetails) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
 
             redirectAttributes.addFlashAttribute("addOfferModel", addOfferModel);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addOfferModel",

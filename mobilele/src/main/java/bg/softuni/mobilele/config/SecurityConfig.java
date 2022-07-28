@@ -1,6 +1,5 @@
 package bg.softuni.mobilele.config;
 
-import bg.softuni.mobilele.model.enums.UserRoleEnum;
 import bg.softuni.mobilele.repository.UserRepository;
 import bg.softuni.mobilele.service.MobileleUserDetailsService;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -33,6 +32,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers("/", "/users/login", "/users/register").permitAll()
+                .antMatchers("/offers/all").permitAll()
                 //.antMatchers("/pages/moderators").hasRole(UserRoleEnum.MODERATOR.name())
                 //.antMatchers("/pages/admins").hasRole(UserRoleEnum.ADMIN.name())
                 .anyRequest()
